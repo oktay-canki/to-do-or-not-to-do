@@ -11,10 +11,13 @@
   --dark-secondary-text: gray;
 
   background-color: var(--dark-bg);
-  color: var(--dark-text);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.dark-text {
+  color: var(--dark-text);
 }
