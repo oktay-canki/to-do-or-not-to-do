@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dark-bg: #0d1321;
+  --dark-primary: #293c66;
+  --dark-secondary: #17223a;
+  --dark-accent: #7d2e68;
+  --dark-text: white;
+  --dark-secondary-text: gray;
+
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
