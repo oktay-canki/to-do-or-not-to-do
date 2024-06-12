@@ -3,21 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --dark-bg: #0d1321;
-  --dark-primary: #293c66;
-  --dark-secondary: #17223a;
-  --dark-accent: #7d2e68;
-  --dark-text: white;
-  --dark-secondary-text: gray;
+  --bg: #0d1321;
+  --primary: #293c66;
+  --secondary: #17223a;
+  --accent: #7d2e68;
+  --text: white;
+  --secondary-text: gray;
 
-  background-color: var(--dark-bg);
+  background-color: var(--bg);
+  color: var(--text);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.dark-text {
-  color: var(--dark-text);
 }
