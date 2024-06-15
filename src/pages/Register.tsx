@@ -1,5 +1,5 @@
-import Button from "../components/common/Button";
-import Input from "../components/common/Input";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
 import LoggedOutLayout from "./layouts/logged-out";
 import { FcGoogle } from "react-icons/fc";
 import { SiWindowsxp } from "react-icons/si";
