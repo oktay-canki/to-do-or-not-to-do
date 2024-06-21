@@ -3,7 +3,7 @@ type LoggedOutLayoutProps = {
 };
 
 const LoggedOutLayout = ({ children }: LoggedOutLayoutProps) => {
-  return <div className="flex flex-col h-dvh">{children}</div>;
+  return <div className="flex flex-col min-h-dvh">{children}</div>;
 };
 
 export default LoggedOutLayout;

@@ -1,5 +1,3 @@
-import Navbar from "../../components/common/Navbar";
-
 type LoggedInLayoutProps = {
   children: React.ReactNode;
 };
@@ -7,12 +5,7 @@ type LoggedInLayoutProps = {
 const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
   children,
 }: LoggedInLayoutProps) => {
-  return (
-    <div className="flex flex-col h-dvh">
-      <Navbar />
-      {children}
-    </div>
-  );
+  return <div className="flex flex-col min-h-dvh">{children}</div>;
 };
 
 export default LoggedInLayout;

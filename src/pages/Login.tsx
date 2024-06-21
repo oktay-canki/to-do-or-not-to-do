@@ -16,7 +16,7 @@ const Login = () => {
               Login to your account
             </h2>
             <p className="text-2xl text-secondary-text tracking-wide">
-              Please enter your credentials to access your task lists
+              Please enter your credentials to access your tasks
             </p>
           </div>
           <img
