@@ -1,15 +1,20 @@
 import { SidebarProvider } from "../../contexts/SidebarContext";
+import { Navigate, Outlet } from "react-router-dom";
+import { TaskDetailsProvider } from "../../contexts/TaskDetailsContext";
 
-type LoggedInLayoutProps = {
-  children: React.ReactNode;
-};
+const LoggedInLayout = () => {
+  const isAuthenticated = true; // mock for testing purposes
 
-const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
-  children,
-}: LoggedInLayoutProps) => {
+  if (!isAuthenticated) {
+    // Redirect to the login page if not authenticated
+    return <Navigate to="/out/login" />;
+  }
+
   return (
     <SidebarProvider>
-      <div className="flex flex-col min-h-dvh">{children}</div>
+      <TaskDetailsProvider>
+        <div className="flex flex-col min-h-dvh">{<Outlet />}</div>
+      </TaskDetailsProvider>
     </SidebarProvider>
   );
 };

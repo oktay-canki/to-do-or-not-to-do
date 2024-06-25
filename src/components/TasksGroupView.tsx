@@ -5,6 +5,7 @@ import Button from "./ui/Button";
 import { MdSend } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
 import SidebarToggler from "./SidebarToggler";
+import useTaskDetailsContext from "../hooks/useTaskDetailsContext";
 
 const TaskGroupView = () => {
   const [tasks, setTasks] = useState([
@@ -13,6 +14,8 @@ const TaskGroupView = () => {
     { order: 2, title: "Bread" },
     { order: 3, title: "Drinks and snacks" },
   ]);
+
+  const { showDetails } = useTaskDetailsContext(); // TODO: remove this after implementing details
 
   const dragTask = useRef<number>(0);
   const draggedOverTask = useRef<number>(0);
@@ -39,17 +42,18 @@ const TaskGroupView = () => {
         </Button>
       </div>
 
-      <div className="flex-1 min-h-0 overflow-auto">
+      <div className="flex-1 min-h-0 overflow-auto pr-2">
         <ul>
           {tasks.map((task, idx) => (
             <li
               key={idx}
-              className="flex items-center mb-2 px-4 py-3 gap-2 bg-secondary rounded-md"
+              className="flex items-center mb-2 px-4 py-3 gap-2 bg-secondary rounded-md cursor-pointer hover:bg-primary"
               draggable
               onDragStart={() => (dragTask.current = idx)}
               onDragEnter={() => (draggedOverTask.current = idx)}
               onDragEnd={handleSort}
               onDragOver={(e) => e.preventDefault()}
+              onClick={showDetails}
             >
               <input type="checkbox" />
               <span className="flex flex-1">{task.title}</span>
