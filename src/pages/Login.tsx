@@ -8,7 +8,7 @@ import { IoKeyOutline } from "react-icons/io5";
 const Login = () => {
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="hidden lg:flex flex-col justify-between flex-1 min-h-dvh border-r-2 border-secondary-text">
+      <div className="hidden lg:flex flex-col justify-between w-full lg:w-6/12 min-h-dvh border-r-2 border-secondary-text">
         <div className="flex-none w-full lg:p-20 xl:p-28">
           <h2 className="text-5xl font-bold tracking-wider mb-2">
             Login to your account
@@ -22,7 +22,7 @@ const Login = () => {
           src="/images/task-illustration.svg"
         />
       </div>
-      <div className="flex-1 min-h-dvh py-14 md:p-28">
+      <div className="w-full lg:w-6/12 min-h-dvh py-14 md:p-28">
         <div className="w-8/12 m-auto">
           <form action="">
             <h2 className="text-4xl font-bold mb-6">Login</h2>

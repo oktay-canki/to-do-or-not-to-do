@@ -14,7 +14,7 @@ const Input = ({ label, error, icon, className, ...props }: InputProps) => {
         </label>
       )}
       <input
-        className={`border-0 rounded-md outline-none p-4 bg-secondary transition-all ${className}`}
+        className={`border-0 rounded-md outline-none p-4 bg-primary transition-all ${className}`}
         {...props}
       />
       {error && <label className="text-danger">* {error}</label>}

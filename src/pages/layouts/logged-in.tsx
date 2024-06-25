@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { TaskDetailsProvider } from "../../contexts/TaskDetailsContext";
 
 const LoggedInLayout = () => {
-  const isAuthenticated = true; // mock for testing purposes
+  const isAuthenticated = false; // mock for testing purposes
 
   if (!isAuthenticated) {
     // Redirect to the login page if not authenticated

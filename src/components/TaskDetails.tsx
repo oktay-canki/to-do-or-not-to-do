@@ -18,7 +18,7 @@ const TaskDetails = () => {
         className="bg-black flex-1 opacity-55 lg:hidden"
         onClick={hideDetails}
       ></div>
-      <aside className="bg-bg p-4 flex flex-col w-10/12 md:w-8/12 h-dvh border-white border-l-2 lg:flex lg:static lg:border-0 lg:w-80 overflow-y-auto">
+      <aside className="bg-secondary p-4 flex flex-col w-10/12 md:w-8/12 h-dvh border-white border-l-2 lg:flex lg:static lg:border-0 lg:w-80 overflow-y-auto">
         <Button
           className="w-fit ml-auto bg-transparent px-3 py-1"
           onClick={hideDetails}
@@ -29,7 +29,7 @@ const TaskDetails = () => {
           <input type="checkbox" />
           <Input
             type="text"
-            className="bg-transparent hover:bg-secondary focus:bg-secondary py-2 px-1 ml-1 text-xl"
+            className="bg-transparent hover:bg-primary focus:bg-primary py-2 px-1 ml-1 text-xl"
             value={"Selected task title dsad as dasd as ds"}
           />
         </div>
@@ -47,7 +47,7 @@ const TaskDetails = () => {
           <Input type="date" label="Due Date" />
           <div className="mt-4">
             <label className="mt-4">Description</label>
-            <textarea className="w-full h-32 bg-secondary rounded-md p-4 mt-2 outline-none">
+            <textarea className="w-full h-32 bg-primary rounded-md p-4 mt-2 outline-none">
               asdasdsd
             </textarea>
           </div>

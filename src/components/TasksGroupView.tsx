@@ -30,7 +30,7 @@ const TaskGroupView = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1 p-8 bg-black bg-opacity-10 min-w-0">
+    <div className="flex flex-col flex-1 p-8 min-w-0">
       <SidebarToggler />
       <div className="flex items-center py-8 px-6 gap-2">
         <LuClipboardList size={28} />
@@ -42,7 +42,7 @@ const TaskGroupView = () => {
         </Button>
       </div>
 
-      <div className="flex-1 min-h-0 overflow-auto pr-2">
+      <div className="flex-1 min-h-0 overflow-auto">
         <ul>
           {tasks.map((task, idx) => (
             <li

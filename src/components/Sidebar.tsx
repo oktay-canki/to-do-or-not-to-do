@@ -17,7 +17,7 @@ const Sidebar = () => {
       <aside
         className={`${
           !isSidebarVisible && "hidden"
-        } bg-bg absolute flex flex-col w-10/12 md:w-8/12 h-dvh border-white border-r-2 lg:flex lg:static lg:border-0 lg:w-80`}
+        } bg-secondary absolute flex flex-col w-10/12 md:w-8/12 h-dvh border-white border-r-2 lg:flex lg:static lg:border-0 lg:w-80`}
       >
         <Button
           className="w-fit ml-auto bg-transparent px-3 py-1 lg:hidden"

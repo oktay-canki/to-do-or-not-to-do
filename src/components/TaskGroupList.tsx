@@ -51,7 +51,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
         <input
           type="text"
           placeholder="Add new task group"
-          className="h-12 flex-1 outline-none bg-transparent text-lg px-3 py-1 hover:bg-secondary focus:bg-secondary"
+          className="h-12 flex-1 outline-none bg-primary text-lg px-3 py-1 hover:bg-primary focus:bg-primary"
         />
         <button type="submit" className="h-12 px-3 bg-accent">
           <IoIosAdd size={24} />
