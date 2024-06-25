@@ -46,10 +46,12 @@ const Login = () => {
                   icon={<IoKeyOutline size={24} />}
                 />
               </div>
-              <Button className="w-full p-5 mb-6">Login to account</Button>
+              <Button className="w-full p-5 mb-6 rounded-sm">
+                Login to account
+              </Button>
             </form>
             <div className="w-full text-center mb-6">
-              <a href="#" className="text-lg text-accent">
+              <a href="#" className="text-lg text-accent underline">
                 Forget your password?
               </a>
             </div>
@@ -58,17 +60,17 @@ const Login = () => {
               <span>or</span>
               <hr className="flex-grow bg-text" />
             </div>
-            <Button className="w-full flex justify-center items-center bg-white text-black mb-6">
+            <Button className="w-full flex justify-center items-center bg-white text-black mb-6 rounded-sm">
               <FcGoogle size={30} className="mr-2" /> Login With Google
             </Button>
-            <Button className="w-full flex justify-center items-center bg-white text-black mb-6">
+            <Button className="w-full flex justify-center items-center bg-white text-black mb-6 rounded-sm">
               <SiWindowsxp size={30} className="mr-2" />
               Login With Microsoft
             </Button>
             <div className="w-full">
               <p className="text-text text-center">
                 Don't have an account?
-                <a href="#" className="text-accent ml-2">
+                <a href="#" className="text-accent ml-2 underline">
                   Sign Up Now!
                 </a>
               </p>

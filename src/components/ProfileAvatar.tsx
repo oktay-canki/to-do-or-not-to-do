@@ -5,9 +5,9 @@ type ProfileAvatarProps = {
 const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
   return (
     <div
-      className={`flex gap-2 p-3 hover:bg-primary cursor-pointer rounded-r-md transition-all ${className}`}
+      className={`flex gap-2 p-3 hover:bg-primary cursor-pointer lg:rounded-r-md transition-all ${className}`}
     >
-      <span className="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-accent rounded-full">
+      <span className="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-accent rounded-full text-2xl tracking-widest">
         DJ
       </span>
       <div className="flex flex-1 flex-col justify-evenly overflow-hidden">

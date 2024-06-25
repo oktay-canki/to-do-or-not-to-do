@@ -12,7 +12,7 @@ const Register = () => {
   return (
     <LoggedOutLayout>
       <div className="flex flex-col-reverse lg:flex-row">
-        <div className="flex flex-col flex-1 lg:min-h-dvh border-r-2 border-secondary-text">
+        <div className="flex flex-col flex-1 lg:min-h-dvh lg:border-r-2 border-secondary-text pb-28">
           <div className="flex-none w-full p-10 lg:p-20 xl:p-28 mt-20 lg:mt-0">
             <h2 className="text-5xl font-bold tracking-wider mb-2 text-center lg:text-left">
               Create a new account
@@ -22,19 +22,19 @@ const Register = () => {
             </p>
           </div>
           <div className="flex w-full px-10 lg:px-20 xl:px-28">
-            <ul className="flex flex-col gap-5 tracking-wide md:p-0 m-auto lg:m-0">
-              <li className="flex gap-4 items-center text-2xl">
+            <ul className="flex flex-col gap-7 tracking-wide md:p-0 m-auto lg:m-0">
+              <li className="flex gap-6 items-center text-2xl">
                 <FaCheckCircle /> Plan ahead of time to be prepared
               </li>
-              <li className="flex gap-4 items-center text-2xl">
+              <li className="flex gap-6  items-center text-2xl">
                 <FaCheckCircle />
                 Keep track of your completed tasks
               </li>
-              <li className="flex gap-4 items-center text-2xl">
+              <li className="flex gap-6  items-center text-2xl">
                 <FaCheckCircle />
                 Group, order and orginize your todos
               </li>
-              <li className="flex gap-4 items-center text-2xl">
+              <li className="flex gap-6  items-center text-2xl">
                 <FaCheckCircle />
                 Get notified before your deadlines
               </li>
@@ -72,10 +72,12 @@ const Register = () => {
                   icon={<RiLockPasswordLine size={24} />}
                 />
               </div>
-              <Button className="w-full p-5 mb-6">Create Account</Button>
+              <Button className="w-full p-5 mb-6 rounded-sm">
+                Create Account
+              </Button>
             </form>
             <div className="w-full text-center mb-6">
-              <a href="#" className="text-lg text-accent">
+              <a href="#" className="text-lg text-accent underline">
                 Forget your password?
               </a>
             </div>
@@ -84,17 +86,17 @@ const Register = () => {
               <span>or</span>
               <hr className="flex-grow bg-text" />
             </div>
-            <Button className="w-full flex justify-center items-center bg-white text-black mb-6">
+            <Button className="w-full flex justify-center items-center bg-white text-black mb-6 rounded-sm">
               <FcGoogle size={30} className="mr-2" /> Login with Google
             </Button>
-            <Button className="w-full flex justify-center items-center bg-white text-black mb-6">
+            <Button className="w-full flex justify-center items-center bg-white text-black mb-6 rounded-sm">
               <SiWindowsxp size={30} className="mr-2" />
               Login with Microsoft
             </Button>
             <div className="w-full">
               <p className="text-text text-center">
                 Don't have an account?
-                <a href="#" className="text-accent ml-2">
+                <a href="#" className="text-accent ml-2 underline">
                   Sign Up Now!
                 </a>
               </p>

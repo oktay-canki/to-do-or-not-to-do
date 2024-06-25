@@ -15,13 +15,13 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
     { order: 5, title: "Movies" },
   ]);
 
-  const dragTask = useRef<number>(0);
-  const draggedOverTask = useRef<number>(0);
+  const dragTaskGroup = useRef<number>(0);
+  const draggedOverTaskGroup = useRef<number>(0);
 
   const handleSort = () => {
     const taskGroupsClone = [...taskGroups];
-    const [item] = taskGroupsClone.splice(dragTask.current, 1);
-    taskGroupsClone.splice(draggedOverTask.current, 0, item);
+    const [item] = taskGroupsClone.splice(dragTaskGroup.current, 1);
+    taskGroupsClone.splice(draggedOverTaskGroup.current, 0, item);
     setTaskGroups((prev) =>
       taskGroupsClone.map((taskGroup, idx) => ({ ...taskGroup, order: idx }))
     );
@@ -29,29 +29,31 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
 
   return (
     <div className={`flex flex-col flex-1 min-h-0 ${className}`}>
-      <ul className="flex-1 overflow-y-auto bg-secondary">
+      <ul className="flex-1 overflow-y-auto">
         {taskGroups.map((taskGroup, idx) => (
           <li
             key={idx}
-            className="flex items-center py-3 px-2 gap-2 cursor-pointer hover:bg-primary"
+            className="flex items-center py-3 px-2 gap-2 cursor-pointer hover:bg-primary transition-all"
             draggable
-            onDragStart={() => (dragTask.current = idx)}
-            onDragEnter={() => (draggedOverTask.current = idx)}
+            onDragStart={() => (dragTaskGroup.current = idx)}
+            onDragEnter={() => (draggedOverTaskGroup.current = idx)}
             onDragEnd={handleSort}
             onDragOver={(e) => e.preventDefault()}
           >
             <RxDragHandleDots2 size={30} />
-            <span className="">{taskGroup.title}</span>
+            <span className="whitespace-nowrap overflow-ellipsis overflow-hidden">
+              {taskGroup.title}
+            </span>
           </li>
         ))}
       </ul>
-      <form className="flex bg-secondary h-12">
+      <form className="flex h-12">
         <input
           type="text"
           placeholder="Add new task group"
-          className="h-12 flex-1 outline-none bg-transparent text-lg px-3 py-1 hover:bg-slate-800"
+          className="h-12 flex-1 outline-none bg-transparent text-lg px-3 py-1 hover:bg-secondary focus:bg-secondary"
         />
-        <button type="submit" className="h-12 px-3 bg-accent rounded-sm">
+        <button type="submit" className="h-12 px-3 bg-accent">
           <IoIosAdd size={24} />
         </button>
       </form>
