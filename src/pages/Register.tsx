@@ -6,6 +6,7 @@ import { GoMail } from "react-icons/go";
 import { IoKeyOutline } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
@@ -39,7 +40,7 @@ const Register = () => {
           </ul>
         </div>
       </div>
-      <div className="flex-1 min-h-dvh pt-10 pb-5 lg:pt-20 lg:pb-10">
+      <div className="w-full lg:w-6/12 min-h-dvh py-14 md:p-28">
         <div className="w-8/12 m-auto">
           <form action="">
             <h2 className="text-4xl font-bold mb-6">Register</h2>
@@ -94,9 +95,12 @@ const Register = () => {
           <div className="w-full">
             <p className="text-text text-center">
               Already have an account?
-              <a href="#" className="text-secondary-text ml-2 underline">
+              <Link
+                to="/out/login"
+                className="text-secondary-text ml-2 underline"
+              >
                 Go to Login
-              </a>
+              </Link>
             </p>
           </div>
         </div>

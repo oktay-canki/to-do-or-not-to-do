@@ -4,6 +4,8 @@ import { FcGoogle } from "react-icons/fc";
 import { SiWindowsxp } from "react-icons/si";
 import { GoMail } from "react-icons/go";
 import { IoKeyOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   return (
@@ -68,9 +70,12 @@ const Login = () => {
           <div className="w-full">
             <p className="text-text text-center">
               Don't have an account?
-              <a href="#" className="text-secondary-text ml-2 underline">
+              <Link
+                to="/out/register"
+                className="text-secondary-text ml-2 underline"
+              >
                 Sign Up Now!
-              </a>
+              </Link>
             </p>
           </div>
         </div>
