@@ -1,12 +1,9 @@
 import Button from "../components/ui/Button";
-import Input from "../components/ui/Input";
 import { FcGoogle } from "react-icons/fc";
 import { SiWindowsxp } from "react-icons/si";
-import { GoMail } from "react-icons/go";
-import { IoKeyOutline } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
-import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import RegisterForm from "../components/forms/RegisterForm";
 
 const Register = () => {
   return (
@@ -42,41 +39,20 @@ const Register = () => {
       </div>
       <div className="w-full lg:w-6/12 min-h-dvh py-14 md:p-28">
         <div className="w-8/12 m-auto">
-          <form action="">
-            <h2 className="text-4xl font-bold mb-6">Register</h2>
-            <div className="mb-6">
-              <Input
-                type="email"
-                label="E-mail"
-                placeholder="Enter your email"
-                className="p-5"
-                icon={<GoMail size={24} />}
-              />
-            </div>
-            <div className="mb-6">
-              <Input
-                type="password"
-                label="Password"
-                placeholder="Enter your password"
-                className="p-5"
-                icon={<IoKeyOutline size={24} />}
-              />
-            </div>
-            <div className="mb-6">
-              <Input
-                type="password"
-                label="Verify Password"
-                placeholder="Enter your password again"
-                className="p-5"
-                icon={<RiLockPasswordLine size={24} />}
-              />
-            </div>
-            <Button className="w-full p-5 mb-6 rounded-sm">
-              Create Account
-            </Button>
-          </form>
-          <div className="w-full text-center mb-6">
-            <a href="#" className="text-lg text-secondary-text underline">
+          <RegisterForm />
+          <div className="w-full">
+            <p className="text-text text-center">
+              Already have an account?
+              <Link
+                to="/out/login"
+                className="text-secondary-text ml-2 underline"
+              >
+                Go to Login
+              </Link>
+            </p>
+          </div>
+          <div className="w-full text-center mt-2 mb-2">
+            <a href="#" className="text-secondary-text underline">
               Forget your password?
             </a>
           </div>
@@ -92,17 +68,6 @@ const Register = () => {
             <SiWindowsxp size={30} className="mr-2" />
             Login with Microsoft
           </Button>
-          <div className="w-full">
-            <p className="text-text text-center">
-              Already have an account?
-              <Link
-                to="/out/login"
-                className="text-secondary-text ml-2 underline"
-              >
-                Go to Login
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
