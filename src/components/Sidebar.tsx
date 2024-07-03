@@ -25,7 +25,7 @@ const Sidebar = () => {
         >
           <IoClose size={30} />
         </Button>
-        <ProfileAvatar className="mb-4" />
+        <ProfileAvatar className="mb-6" />
         <SearchForm className="mb-8" />
         <TaskGroupList />
       </aside>

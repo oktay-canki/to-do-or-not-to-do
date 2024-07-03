@@ -68,7 +68,7 @@ const TaskGroupView = () => {
             key={1}
             className="flex items-center mb-2 px-4 py-3 gap-2 bg-secondary rounded-md"
           >
-            <input type="checkbox" checked />
+            <input type="checkbox" defaultChecked readOnly />
             <span className="flex flex-1 line-through text-secondary-text">
               Paper Towel
             </span>

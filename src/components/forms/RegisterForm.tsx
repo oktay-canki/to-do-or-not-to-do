@@ -6,6 +6,12 @@ import Button from "../ui/Button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../services/firebase/main";
+import { doc, setDoc } from "firebase/firestore";
+import RequestError from "../../types/RequestError";
+import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 
 const formSchema = z
   .object({
@@ -36,17 +42,32 @@ const RegisterForm = () => {
   } = useForm<RegisterFormFields>({ resolver: zodResolver(formSchema) });
 
   const onSubmit: SubmitHandler<RegisterFormFields> = async (data) => {
-    /*setError("root", {
-        message: "This email is already taken",
-      });*/
+    try {
+      const { email: rawEmail, username: rawUsername, password } = data;
+      const email = rawEmail.trim();
+      const username = rawUsername.trim();
+
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      await setDoc(doc(db, "users", res.user.uid), {
+        id: res.user.uid,
+        username: username,
+        email: email,
+      });
+
+      toast.success("Your account is created");
+    } catch (error) {
+      if (isRequestError(error)) {
+        toast.error(firebaseErrorMessage(error));
+      } else {
+        toast.error("An unknown error occurred.");
+      }
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-4xl font-bold mb-6">Register</h2>
-      {errors.root && (
-        <p className="text-danger px-2 mb-2">* {errors.root.message}</p>
-      )}
       <div className="mb-6">
         <Input
           {...rhfRegister("username")}

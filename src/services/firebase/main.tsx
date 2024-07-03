@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "reacttodo-abb81.firebaseapp.com",
   projectId: "reacttodo-abb81",
   storageBucket: "reacttodo-abb81.appspot.com",

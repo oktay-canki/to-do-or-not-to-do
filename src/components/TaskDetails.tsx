@@ -47,9 +47,7 @@ const TaskDetails = () => {
           <Input type="date" label="Due Date" />
           <div className="mt-4">
             <label className="mt-4">Description</label>
-            <textarea className="w-full h-32 bg-primary rounded-md p-4 mt-2 outline-none">
-              asdasdsd
-            </textarea>
+            <textarea className="w-full h-32 bg-primary rounded-md p-4 mt-2 outline-none"></textarea>
           </div>
         </form>
         <form>

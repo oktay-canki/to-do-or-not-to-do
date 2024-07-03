@@ -2,7 +2,7 @@ import Button from "../components/ui/Button";
 import { FcGoogle } from "react-icons/fc";
 import { SiWindowsxp } from "react-icons/si";
 import { Link } from "react-router-dom";
-import LoginForm from "../components/forms/LoginForms";
+import LoginForm from "../components/forms/LoginForm";
 
 const Login = () => {
   return (

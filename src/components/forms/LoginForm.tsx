@@ -5,6 +5,11 @@ import { GoMail } from "react-icons/go";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../services/firebase/main";
+import { firebaseErrorMessage, isRequestError } from "../../utils/main";
+import RequestError from "../../types/RequestError";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -22,9 +27,15 @@ const LoginForm = () => {
   } = useForm<LoginFormFields>({ resolver: zodResolver(formSchema) });
 
   const onSubmit: SubmitHandler<LoginFormFields> = async (data) => {
-    /*setError("root", {
-        message: "This email is already taken",
-      });*/
+    try {
+      await signInWithEmailAndPassword(auth, data.email.trim(), data.password);
+    } catch (error) {
+      if (isRequestError(error)) {
+        toast.error(firebaseErrorMessage(error));
+      } else {
+        toast.error("An unknown error occurred.");
+      }
+    }
   };
 
   return (
