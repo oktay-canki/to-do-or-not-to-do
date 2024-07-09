@@ -1,4 +1,4 @@
-import { useUserStore } from "../stores/userStore";
+import { useCurrentUser } from "../stores/userStore";
 import { nameInitials } from "../utils/formatters";
 import {
   Button,
@@ -17,9 +17,7 @@ type ProfileAvatarProps = {
 };
 
 const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
-  const { currentUser } = useUserStore();
-
-  if (!currentUser) throw Error("User information is not available");
+  const currentUser = useCurrentUser();
 
   return (
     <Menu
@@ -66,7 +64,10 @@ const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
             {({ focus }) => (
               <Button
                 onClick={() => auth.signOut()}
-                className="flex items-center gap-2 px-4 py-2 text-md bg-danger rounded-b w-full"
+                className={classNames(
+                  focus && "bg-primary",
+                  "flex px-4 py-2 text-md items-center gap-2 rounded-b w-full"
+                )}
               >
                 <PiSignOutBold size={22} /> Sign Out
               </Button>

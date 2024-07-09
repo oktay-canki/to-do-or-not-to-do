@@ -62,6 +62,7 @@ const RegisterForm = () => {
       } else {
         toast.error("An unknown error occurred.");
       }
+      console.log(error);
     }
   };
 

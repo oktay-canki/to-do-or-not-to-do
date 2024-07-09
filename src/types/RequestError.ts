@@ -1,6 +1,7 @@
 type RequestError = {
-  message: string;
+  message?: string;
   code: string;
+  detailMessage?: string;
 };
 
 export default RequestError;

@@ -17,21 +17,35 @@ interface UserState {
 export const useUserStore = create<UserState>((set) => ({
   currentUser: null,
   isLoading: true,
-  fetchUserInfo: async (uid: string | null) => {
-    if (!uid) return set({ currentUser: null, isLoading: false });
+  fetchUserInfo: async (uid) => {
+    if (!uid) {
+      set({ currentUser: null, isLoading: false });
+      return;
+    }
 
     try {
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        set({ currentUser: docSnap.data() as User, isLoading: false });
+        set({
+          currentUser: { id: docSnap.id, ...docSnap.data() } as User,
+          isLoading: false,
+        });
       } else {
         set({ currentUser: null, isLoading: false });
       }
     } catch (error) {
-      console.log(error);
-      return set({ currentUser: null, isLoading: false });
+      console.log("Error fetching user info:", error);
+      set({ currentUser: null, isLoading: false });
     }
   },
 }));
+
+export const useCurrentUser = () => {
+  const { currentUser } = useUserStore();
+
+  if (!currentUser) throw new Error("Current user is not available");
+
+  return currentUser;
+};

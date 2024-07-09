@@ -4,6 +4,7 @@ import SearchForm from "./SearchForm";
 import TaskGroupList from "./TaskGroupList";
 import Button from "./ui/Button";
 import { IoClose } from "react-icons/io5";
+import AddTaskGroupForm from "./forms/AddTaskGroupForm";
 
 const Sidebar = () => {
   const { isSidebarVisible, hideSidebar } = useSidebarContext();
@@ -28,6 +29,7 @@ const Sidebar = () => {
         <ProfileAvatar className="mb-6" />
         <SearchForm className="mb-8" />
         <TaskGroupList />
+        <AddTaskGroupForm />
       </aside>
       <div
         className="bg-black absolute w-2/12 md:w-4/12 h-dvh right-0 opacity-55 lg:hidden"

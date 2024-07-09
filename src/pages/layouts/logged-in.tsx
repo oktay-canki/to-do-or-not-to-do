@@ -6,18 +6,47 @@ import { useUserStore } from "../../stores/userStore";
 import PageLoading from "../../components/PageLoading";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../services/firebase/main";
+import { auth, db } from "../../services/firebase/main";
+import { useTaskGroupStore } from "../../stores/taskGroupStore";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import TaskGroup from "../../types/TaskGroup";
+import { sortByGroupOrder } from "../../utils/main";
 
 const LoggedInLayout = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();
+  const { fetchTaskGroups, setTaskGroups } = useTaskGroupStore();
 
   useEffect(() => {
-    const unSub = onAuthStateChanged(auth, (user) => {
+    let unSubAuth: (() => void) | undefined;
+    let unSubTaskGroups: (() => void) | undefined;
+
+    unSubAuth = onAuthStateChanged(auth, (user) => {
       fetchUserInfo(user && user.uid ? user.uid : null);
+
+      if (user && user.uid) {
+        const q = query(collection(db, "users", user.uid, "taskGroups"));
+        unSubTaskGroups = onSnapshot(q, (snapshot) => {
+          try {
+            const taskGroupsData = snapshot.docs.map(
+              (doc) => ({ id: doc.id, ...doc.data() } as TaskGroup)
+            );
+            setTaskGroups(sortByGroupOrder(taskGroupsData));
+          } catch (error) {
+            console.log(error);
+          }
+        });
+      }
     });
 
-    return () => unSub();
+    return () => {
+      if (unSubAuth) unSubAuth();
+      if (unSubTaskGroups) unSubTaskGroups();
+    };
   }, [fetchUserInfo]);
+
+  useEffect(() => {
+    if (currentUser) fetchTaskGroups(currentUser.id);
+  }, [currentUser]);
 
   if (isLoading) return <PageLoading />;
 

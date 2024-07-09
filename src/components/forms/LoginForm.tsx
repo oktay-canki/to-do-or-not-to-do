@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase/main";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
-import RequestError from "../../types/RequestError";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -35,6 +34,7 @@ const LoginForm = () => {
       } else {
         toast.error("An unknown error occurred.");
       }
+      console.log(error);
     }
   };
 
