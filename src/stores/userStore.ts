@@ -41,11 +41,3 @@ export const useUserStore = create<UserState>((set) => ({
     }
   },
 }));
-
-export const useCurrentUser = () => {
-  const { currentUser } = useUserStore();
-
-  if (!currentUser) throw new Error("Current user is not available");
-
-  return currentUser;
-};

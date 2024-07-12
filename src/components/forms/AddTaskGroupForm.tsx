@@ -8,7 +8,7 @@ import { TailSpin } from "react-loader-spinner";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 import { toast } from "react-toastify";
 import addTaskGroup from "../../services/firebase/task-groups/addTaskGroup";
-import { useCurrentUser } from "../../stores/userStore";
+import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingSpinner from "../LoadingSpinner";
 
 const formSchema = z.object({

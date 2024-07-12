@@ -1,4 +1,3 @@
-import { useCurrentUser } from "../stores/userStore";
 import { nameInitials } from "../utils/formatters";
 import {
   Button,
@@ -11,6 +10,7 @@ import { classNames } from "../utils/main";
 import { PiSignOutBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { auth } from "../services/firebase/main";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 type ProfileAvatarProps = {
   className?: string;

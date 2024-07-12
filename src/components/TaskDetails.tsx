@@ -3,15 +3,15 @@ import Input from "./ui/Input";
 import Button from "./ui/Button";
 import { GrAttachment } from "react-icons/gr";
 import { IoClose } from "react-icons/io5";
-import useTaskDetailsContext from "../hooks/useTaskDetailsContext";
+import { useTaskDetailsStore } from "../stores/taskDetailsStore";
 
 const TaskDetails = () => {
-  const { isDetailsVisible, hideDetails } = useTaskDetailsContext();
+  const { isVisible, hideDetails } = useTaskDetailsStore();
 
   return (
     <div
       className={`${
-        !isDetailsVisible && "hidden"
+        !isVisible && "hidden"
       } absolute w-full flex lg:w-fit lg:static`}
     >
       <div

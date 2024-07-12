@@ -6,7 +6,7 @@ import TaskGroupListSkeleton from "./TaskGroupListSkeleton";
 import { firebaseErrorMessage, isRequestError } from "../utils/main";
 import { toast } from "react-toastify";
 import updateTaskGroupsBatch from "../services/firebase/task-groups/updateTaskGroupsBatch";
-import { useCurrentUser } from "../stores/userStore";
+import useCurrentUser from "../hooks/useCurrentUser";
 import LoadingSpinner from "./LoadingSpinner";
 
 type TaskGroupListProps = {

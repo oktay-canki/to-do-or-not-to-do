@@ -5,7 +5,6 @@ import Button from "./ui/Button";
 import { MdSend } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
 import SidebarToggler from "./SidebarToggler";
-import useTaskDetailsContext from "../hooks/useTaskDetailsContext";
 
 const TaskGroupView = () => {
   const [tasks, setTasks] = useState([
@@ -15,7 +14,9 @@ const TaskGroupView = () => {
     { order: 3, title: "Drinks and snacks" },
   ]);
 
-  const { showDetails } = useTaskDetailsContext(); // TODO: remove this after implementing details
+  const showDetails = () => {
+    // TODO: Implement task details view
+  };
 
   const dragTask = useRef<number>(0);
   const draggedOverTask = useRef<number>(0);

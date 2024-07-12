@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { TaskDetailsProvider } from "../../contexts/TaskDetailsContext";
 import Notification from "../../components/Notification";
 import { useUserStore } from "../../stores/userStore";
 import PageLoading from "../../components/PageLoading";
@@ -55,12 +54,10 @@ const LoggedInLayout = () => {
   }
 
   return (
-    <TaskDetailsProvider>
-      <div className="flex flex-col min-h-dvh">
-        <Notification />
-        <Outlet />
-      </div>
-    </TaskDetailsProvider>
+    <div className="flex flex-col min-h-dvh">
+      <Notification />
+      <Outlet />
+    </div>
   );
 };
 
