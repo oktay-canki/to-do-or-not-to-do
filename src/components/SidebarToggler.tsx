@@ -1,9 +1,9 @@
-import { useSidebarContext } from "../hooks/useSidebarContext";
+import { useSidebarStore } from "../stores/sidebarStore";
 import Button from "./ui/Button";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 const SidebarToggler = () => {
-  const { toggleSidebar } = useSidebarContext();
+  const { toggleSidebar } = useSidebarStore();
 
   return (
     <Button className="w-fit rounded-sm lg:hidden" onClick={toggleSidebar}>

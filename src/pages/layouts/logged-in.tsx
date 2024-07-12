@@ -1,4 +1,3 @@
-import { SidebarProvider } from "../../contexts/SidebarContext";
 import { Navigate, Outlet } from "react-router-dom";
 import { TaskDetailsProvider } from "../../contexts/TaskDetailsContext";
 import Notification from "../../components/Notification";
@@ -56,14 +55,12 @@ const LoggedInLayout = () => {
   }
 
   return (
-    <SidebarProvider>
-      <TaskDetailsProvider>
-        <div className="flex flex-col min-h-dvh">
-          <Notification />
-          <Outlet />
-        </div>
-      </TaskDetailsProvider>
-    </SidebarProvider>
+    <TaskDetailsProvider>
+      <div className="flex flex-col min-h-dvh">
+        <Notification />
+        <Outlet />
+      </div>
+    </TaskDetailsProvider>
   );
 };
 

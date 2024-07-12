@@ -1,23 +1,23 @@
-import { useSidebarContext } from "../hooks/useSidebarContext";
 import ProfileAvatar from "./ProfileAvatar";
 import SearchForm from "./SearchForm";
 import TaskGroupList from "./TaskGroupList";
 import Button from "./ui/Button";
 import { IoClose } from "react-icons/io5";
 import AddTaskGroupForm from "./forms/AddTaskGroupForm";
+import { useSidebarStore } from "../stores/sidebarStore";
 
 const Sidebar = () => {
-  const { isSidebarVisible, hideSidebar } = useSidebarContext();
+  const { isVisible, hideSidebar } = useSidebarStore();
 
   return (
     <div
       className={`${
-        !isSidebarVisible && "hidden"
+        !isVisible && "hidden"
       } absolute w-full lg:flex lg:w-fit lg:static`}
     >
       <aside
         className={`${
-          !isSidebarVisible && "hidden"
+          !isVisible && "hidden"
         } bg-secondary absolute flex flex-col w-10/12 md:w-8/12 h-dvh border-white border-r-2 lg:flex lg:static lg:border-0 lg:w-80`}
       >
         <Button
