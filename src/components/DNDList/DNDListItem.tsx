@@ -9,6 +9,8 @@ type DNDListItemProps = {
   handleDrop: (destinationListId: string, index?: number) => void;
   dragBorder?: string;
   dragOverBorder?: string;
+  className?: string;
+  onClick: () => void;
 };
 
 const DNDListItem = ({
@@ -21,19 +23,17 @@ const DNDListItem = ({
   handleDrop,
   dragBorder,
   dragOverBorder,
+  className,
 }: React.PropsWithChildren<DNDListItemProps>) => {
   const { onDragStart, clearDND, onDragEnd, setDragOver } = useDNDStore();
 
   return (
     <li
-      className={!isDragging && isDragOverItem ? "dragover-item" : ""}
+      className={className}
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
         boxSizing: "border-box",
-        border: "2px solid",
+        borderLeft: "4px solid",
+        borderBottom: "2px solid",
         borderColor: "transparent",
         borderLeftColor: isDragging ? dragBorder : "transparent",
         opacity: isDragging ? 0.75 : 1,
@@ -63,17 +63,17 @@ const DNDListItem = ({
         handleDrop(listId, index);
       }}
     >
-      {!isDragging && isDragOverItem && (
-        <hr
-          style={{
-            width: "90%",
-            border: "1px solid",
-            margin: 0,
-            padding: 0,
-            borderColor: dragOverBorder,
-          }}
-        />
-      )}
+      <hr
+        style={{
+          width: "90%",
+          border: "1px solid",
+          margin: "0 auto",
+          marginBottom: "5px",
+          padding: 0,
+          borderColor:
+            !isDragging && isDragOverItem ? dragOverBorder : "transparent",
+        }}
+      />
       {children}
     </li>
   );

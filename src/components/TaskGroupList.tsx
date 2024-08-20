@@ -1,5 +1,5 @@
 import { RxDragHandleDots2 } from "react-icons/rx";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTaskGroupStore } from "../stores/taskGroupStore";
 import TaskGroup from "../types/TaskGroup";
 import TaskGroupListSkeleton from "./TaskGroupListSkeleton";
@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import updateTaskGroupsBatch from "../services/firebase/task-groups/updateTaskGroupsBatch";
 import useCurrentUser from "../hooks/useCurrentUser";
 import LoadingSpinner from "./LoadingSpinner";
+import DNDList from "./DNDList/DNDList";
+import { useDNDStore } from "../stores/dndStore";
 
 type TaskGroupListProps = {
   className?: string;
@@ -16,6 +18,7 @@ type TaskGroupListProps = {
 const TaskGroupList = ({ className }: TaskGroupListProps) => {
   const currentUser = useCurrentUser();
   const { isLoading, taskGroups, setSelectedTaskGroup } = useTaskGroupStore();
+  const { clearDND, draggedItemId, sourceListId } = useDNDStore();
   const [localTaskGroups, setLocalTaskGroups] = useState<TaskGroup[]>(() => {
     return taskGroups ?? [];
   });
@@ -25,44 +28,57 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
     setLocalTaskGroups((prev) => taskGroups ?? []);
   }, [taskGroups]);
 
-  const dragTaskGroup = useRef<number>(-1);
-  const draggedOverTaskGroup = useRef<number>(-1);
-
-  const handleSort = async () => {
+  const handleDrop = async (destinationListId: string, index?: number) => {
     if (
-      [dragTaskGroup.current, draggedOverTaskGroup.current].includes(-1) ||
-      dragTaskGroup.current === draggedOverTaskGroup.current
-    )
+      isUpdating ||
+      !draggedItemId ||
+      !sourceListId ||
+      (sourceListId === destinationListId && !index)
+    ) {
+      clearDND();
       return;
-    if (isUpdating) return;
-
-    setIsUpdating(true);
-    try {
-      const localTaskGroupsClone = [...localTaskGroups];
-      const [item] = localTaskGroupsClone.splice(dragTaskGroup.current, 1);
-      localTaskGroupsClone.splice(draggedOverTaskGroup.current, 0, item);
-      await updateTaskGroupsBatch(
-        currentUser.id,
-        localTaskGroupsClone.map(
-          (taskGroup, idx) =>
-            ({
-              ...taskGroup,
-              groupOrder: idx + 1,
-            } as TaskGroup)
-        ) as TaskGroup[]
-      );
-    } catch (error) {
-      if (isRequestError(error)) {
-        toast.error(firebaseErrorMessage(error));
-      } else {
-        toast.error("An unknown error occurred.");
-      }
-      console.log(error);
-    } finally {
-      setIsUpdating(false);
-      dragTaskGroup.current = -1;
-      draggedOverTaskGroup.current = -1;
     }
+
+    setIsUpdating((prev) => true);
+    let localTaskGroupsClone = [...localTaskGroups];
+    let oldIndex = localTaskGroupsClone.findIndex(
+      (tg) => tg.id === draggedItemId
+    );
+    if (
+      sourceListId === "GroupList" &&
+      destinationListId === "GroupList" &&
+      index &&
+      oldIndex === index - 1
+    ) {
+      // Reorder within the list
+      try {
+        const [movedTaskGroup] = localTaskGroupsClone.splice(oldIndex, 1);
+        if (oldIndex < index) {
+          index--;
+        }
+        localTaskGroupsClone.splice(index, 0, movedTaskGroup);
+        await updateTaskGroupsBatch(
+          currentUser.id,
+          localTaskGroupsClone.map(
+            (taskGroup, idx) =>
+              ({
+                ...taskGroup,
+                groupOrder: idx + 1,
+              } as TaskGroup)
+          ) as TaskGroup[]
+        );
+      } catch (error) {
+        if (isRequestError(error)) {
+          toast.error(firebaseErrorMessage(error));
+        } else {
+          toast.error("An unknown error occurred.");
+        }
+        console.log(error);
+      }
+    }
+
+    clearDND();
+    setIsUpdating((prev) => false);
   };
 
   return (
@@ -75,25 +91,26 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
               <LoadingSpinner />
             </div>
           )}
-          <ul className="flex-1 overflow-y-auto">
-            {localTaskGroups.map((taskGroup, idx) => (
-              <li
-                key={idx}
-                className="flex items-center py-3 px-2 gap-2 cursor-pointer hover:bg-primary transition-all"
-                draggable
-                onDragStart={() => (dragTaskGroup.current = idx)}
-                onDragEnter={() => (draggedOverTaskGroup.current = idx)}
-                onDragEnd={handleSort}
-                onDragOver={(e) => e.preventDefault()}
-                onClick={() => setSelectedTaskGroup(taskGroup.id)}
-              >
+          <DNDList<TaskGroup>
+            className="flex-1 overflow-y-auto"
+            liClassName="flex flex-col py-3 px-2 cursor-pointer hover:bg-primary transition-all"
+            listId="GroupList"
+            items={localTaskGroups}
+            getItemId={(taskGroup) => taskGroup.id}
+            itemRender={(taskGroup) => (
+              <div className="flex  gap-2 items-center">
                 <RxDragHandleDots2 size={30} />
                 <span className="whitespace-nowrap overflow-ellipsis overflow-hidden">
                   {taskGroup.title}
                 </span>
-              </li>
-            ))}
-          </ul>
+              </div>
+            )}
+            listDragOverStyle={{ borderColor: "white" }}
+            itemDragBorder="yellow"
+            itemDragOverBorder="white"
+            handleDrop={handleDrop}
+            onItemClick={(taskGroup) => setSelectedTaskGroup(taskGroup.id)}
+          />
         </>
       )}
     </div>

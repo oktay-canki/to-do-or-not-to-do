@@ -7,10 +7,13 @@ interface ListProps<T> {
   getItemId: (item: T) => string;
   itemRender: (item: T) => React.ReactNode;
   handleDrop: (destinationListId: string, index?: number) => void;
-  listStyle: React.CSSProperties;
-  listDragOverStyle: React.CSSProperties;
+  listStyle?: React.CSSProperties;
+  listDragOverStyle?: React.CSSProperties;
   itemDragBorder?: string;
   itemDragOverBorder?: string;
+  className?: string;
+  liClassName?: string;
+  onItemClick?: (item: T) => void;
 }
 
 const DNDList = <T,>({
@@ -19,10 +22,13 @@ const DNDList = <T,>({
   getItemId,
   itemRender,
   handleDrop,
-  listStyle,
+  listStyle = {},
   listDragOverStyle,
   itemDragBorder,
   itemDragOverBorder,
+  className,
+  liClassName,
+  onItemClick,
 }: ListProps<T>) => {
   const {
     sourceListId,
@@ -37,10 +43,9 @@ const DNDList = <T,>({
 
   return (
     <ul
-      className="dnd-list"
+      className={className}
       style={{
         listStyleType: "none",
-        padding: "10px 0px",
         ...listStyle,
         ...(!isOwnDrag && listId === dragOverListId ? listDragOverStyle : {}),
       }}
@@ -67,6 +72,7 @@ const DNDList = <T,>({
 
         return (
           <DNDListItem
+            className={liClassName}
             key={index}
             listId={listId}
             itemId={itemId}
@@ -78,6 +84,9 @@ const DNDList = <T,>({
             handleDrop={handleDrop}
             dragBorder={itemDragBorder}
             dragOverBorder={itemDragOverBorder}
+            onClick={() => {
+              if (onItemClick) onItemClick(item);
+            }}
           >
             {itemRender(item)}
           </DNDListItem>
