@@ -1,10 +1,9 @@
 import { LuClipboardList } from "react-icons/lu";
-import Input from "./ui/Input";
 import { useRef, useState } from "react";
 import Button from "./ui/Button";
-import { MdSend } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
 import SidebarToggler from "./SidebarToggler";
+import AddTaskForm from "./forms/AddTaskForm";
 
 const TaskGroupView = () => {
   const [tasks, setTasks] = useState([
@@ -22,12 +21,14 @@ const TaskGroupView = () => {
   const draggedOverTask = useRef<number>(0);
 
   const handleSort = () => {
+    /*
     const tasksClone = [...tasks];
     const [item] = tasksClone.splice(dragTask.current, 1);
     tasksClone.splice(draggedOverTask.current, 0, item);
     setTasks((prev) =>
       tasksClone.map((task, idx) => ({ ...task, order: idx }))
     );
+    */
   };
 
   return (
@@ -78,12 +79,7 @@ const TaskGroupView = () => {
       </div>
 
       <div className="text-white mt-8">
-        <form className="flex w-full">
-          <Input className="rounded-r-none" placeholder="Add a new task" />
-          <Button className="rounded-l-none px-4">
-            <MdSend size={24} />
-          </Button>
-        </form>
+        <AddTaskForm />
       </div>
     </div>
   );

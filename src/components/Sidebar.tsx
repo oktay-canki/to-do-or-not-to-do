@@ -1,5 +1,5 @@
 import ProfileAvatar from "./ProfileAvatar";
-import SearchForm from "./SearchForm";
+import SearchForm from "./forms/SearchForm";
 import TaskGroupList from "./TaskGroupList";
 import Button from "./ui/Button";
 import { IoClose } from "react-icons/io5";

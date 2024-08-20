@@ -15,7 +15,7 @@ type TaskGroupListProps = {
 
 const TaskGroupList = ({ className }: TaskGroupListProps) => {
   const currentUser = useCurrentUser();
-  const { isLoading, taskGroups } = useTaskGroupStore();
+  const { isLoading, taskGroups, setSelectedTaskGroup } = useTaskGroupStore();
   const [localTaskGroups, setLocalTaskGroups] = useState<TaskGroup[]>(() => {
     return taskGroups ?? [];
   });
@@ -60,6 +60,8 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
       console.log(error);
     } finally {
       setIsUpdating(false);
+      dragTaskGroup.current = -1;
+      draggedOverTaskGroup.current = -1;
     }
   };
 
@@ -83,6 +85,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
                 onDragEnter={() => (draggedOverTaskGroup.current = idx)}
                 onDragEnd={handleSort}
                 onDragOver={(e) => e.preventDefault()}
+                onClick={() => setSelectedTaskGroup(taskGroup.id)}
               >
                 <RxDragHandleDots2 size={30} />
                 <span className="whitespace-nowrap overflow-ellipsis overflow-hidden">
