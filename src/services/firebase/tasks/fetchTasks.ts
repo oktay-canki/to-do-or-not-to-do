@@ -11,7 +11,8 @@ const fetchTasks = async (
     "users",
     uid,
     "taskGroups",
-    taskGroupId
+    taskGroupId,
+    "tasks"
   );
   const q = query(taskGroupCollection);
   const querySnapshot = await getDocs(q);

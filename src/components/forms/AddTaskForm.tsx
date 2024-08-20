@@ -9,6 +9,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import addTask from "../../services/firebase/tasks/addTask";
+import useCurrentTaskGroup from "../../hooks/useCurrentTaskGroup";
 
 const formSchema = z.object({
   taskName: z
@@ -21,6 +22,7 @@ type AddTaskFormFields = z.infer<typeof formSchema>;
 
 const AddTaskForm = () => {
   const currentUser = useCurrentUser();
+  const selectedTaskGroup = useCurrentTaskGroup();
   const {
     register,
     handleSubmit,
@@ -30,7 +32,11 @@ const AddTaskForm = () => {
 
   const onSubmit: SubmitHandler<AddTaskFormFields> = async (data) => {
     try {
-      const newTask = await addTask(currentUser.id, "", data.taskName);
+      const newTask = await addTask(
+        currentUser.id,
+        selectedTaskGroup.id,
+        data.taskName
+      );
       reset();
     } catch (error) {
       if (isRequestError(error)) {

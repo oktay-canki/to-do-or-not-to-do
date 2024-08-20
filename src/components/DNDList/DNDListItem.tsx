@@ -24,6 +24,7 @@ const DNDListItem = ({
   dragBorder,
   dragOverBorder,
   className,
+  onClick,
 }: React.PropsWithChildren<DNDListItemProps>) => {
   const { onDragStart, clearDND, onDragEnd, setDragOver } = useDNDStore();
 
@@ -62,16 +63,18 @@ const DNDListItem = ({
         }
         handleDrop(listId, index);
       }}
+      onClick={onClick}
     >
       <hr
         style={{
-          width: "90%",
+          width: "100%",
           border: "1px solid",
           margin: "0 auto",
           marginBottom: "5px",
           padding: 0,
           borderColor:
             !isDragging && isDragOverItem ? dragOverBorder : "transparent",
+          borderRadius: "5px",
         }}
       />
       {children}

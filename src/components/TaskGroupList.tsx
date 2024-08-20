@@ -33,7 +33,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
       isUpdating ||
       !draggedItemId ||
       !sourceListId ||
-      (sourceListId === destinationListId && !index)
+      (sourceListId === destinationListId && index === undefined)
     ) {
       clearDND();
       return;
@@ -47,8 +47,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
     if (
       sourceListId === "GroupList" &&
       destinationListId === "GroupList" &&
-      index &&
-      oldIndex === index - 1
+      index !== undefined
     ) {
       // Reorder within the list
       try {
@@ -98,7 +97,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
             items={localTaskGroups}
             getItemId={(taskGroup) => taskGroup.id}
             itemRender={(taskGroup) => (
-              <div className="flex  gap-2 items-center">
+              <div className="flex gap-2 items-center">
                 <RxDragHandleDots2 size={30} />
                 <span className="whitespace-nowrap overflow-ellipsis overflow-hidden">
                   {taskGroup.title}
@@ -109,7 +108,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
             itemDragBorder="yellow"
             itemDragOverBorder="white"
             handleDrop={handleDrop}
-            onItemClick={(taskGroup) => setSelectedTaskGroup(taskGroup.id)}
+            onItemClick={(taskGroup) => setSelectedTaskGroup(taskGroup)}
           />
         </>
       )}

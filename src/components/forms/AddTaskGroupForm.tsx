@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 import addTaskGroup from "../../services/firebase/task-groups/addTaskGroup";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingSpinner from "../LoadingSpinner";
+import { useTaskGroupStore } from "../../stores/taskGroupStore";
+import { getDoc } from "firebase/firestore";
+import TaskGroup from "../../types/TaskGroup";
 
 const formSchema = z.object({
   groupName: z
@@ -21,6 +24,7 @@ type AddTaskGroupFormFields = z.infer<typeof formSchema>;
 
 const AddTaskGroupForm = () => {
   const currentUser = useCurrentUser();
+  const { setSelectedTaskGroup } = useTaskGroupStore();
   const {
     register,
     handleSubmit,
@@ -30,7 +34,19 @@ const AddTaskGroupForm = () => {
 
   const onSubmit: SubmitHandler<AddTaskGroupFormFields> = async (data) => {
     try {
-      const newTaskGroup = await addTaskGroup(currentUser.id, data.groupName);
+      const newTaskGroupRef = await addTaskGroup(
+        currentUser.id,
+        data.groupName
+      );
+      const newTaskGroupSnap = await getDoc(newTaskGroupRef);
+
+      if (newTaskGroupSnap.exists()) {
+        setSelectedTaskGroup({
+          id: newTaskGroupRef.id,
+          ...newTaskGroupSnap.data(),
+        } as TaskGroup);
+      }
+
       reset();
     } catch (error) {
       if (isRequestError(error)) {

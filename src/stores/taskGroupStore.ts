@@ -13,13 +13,13 @@ interface TaskGroupState {
   setTaskGroups: (taskGroups: TaskGroup[]) => void;
   isLoading: boolean;
   fetchTaskGroups: (uid: string | null) => Promise<void>;
-  selectedTaskGroupId: string | undefined;
-  setSelectedTaskGroup: (groupId: string) => void;
+  selectedTaskGroup: TaskGroup | undefined;
+  setSelectedTaskGroup: (taskGroup: TaskGroup) => void;
 }
 
 export const useTaskGroupStore = create<TaskGroupState>((set) => ({
   taskGroups: undefined,
-  selectedTaskGroupId: undefined,
+  selectedTaskGroup: undefined,
   isLoading: false,
 
   setTaskGroups: (taskGroups: TaskGroup[] | undefined) => {
@@ -46,8 +46,7 @@ export const useTaskGroupStore = create<TaskGroupState>((set) => ({
       console.log(error);
     }
   },
-
-  setSelectedTaskGroup: (taskGroupId) => {
-    set({ selectedTaskGroupId: taskGroupId });
+  setSelectedTaskGroup: (taskGroup) => {
+    set({ selectedTaskGroup: taskGroup });
   },
 }));

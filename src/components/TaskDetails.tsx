@@ -30,7 +30,7 @@ const TaskDetails = () => {
           <Input
             type="text"
             className="bg-transparent hover:bg-primary focus:bg-primary py-2 px-1 ml-1 text-xl"
-            value={"Selected task title dsad as dasd as ds"}
+            defaultValue={"Selected task title dsad as dasd as ds"}
           />
         </div>
         <form className="flex items-center mt-1">

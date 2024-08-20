@@ -85,7 +85,9 @@ const DNDList = <T,>({
             dragBorder={itemDragBorder}
             dragOverBorder={itemDragOverBorder}
             onClick={() => {
-              if (onItemClick) onItemClick(item);
+              if (onItemClick) {
+                onItemClick(item);
+              }
             }}
           >
             {itemRender(item)}
