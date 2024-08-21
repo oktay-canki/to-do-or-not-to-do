@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import { IoIosAdd } from "react-icons/io";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../common/LoadingSpinner";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import addTask from "../../services/firebase/tasks/addTask";
@@ -58,6 +58,7 @@ const AddTaskForm = () => {
         {...register("taskName")}
         className="rounded-r-none"
         placeholder="Add a new task"
+        autoComplete="off"
       />
       <Button className="rounded-l-none px-4" disabled={isSubmitting}>
         {isSubmitting ? <LoadingSpinner /> : <IoIosAdd size={30} />}

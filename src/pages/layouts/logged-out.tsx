@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Notification from "../../components/Notification";
+import Notification from "../../components/common/Notification";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../services/firebase/main";
 import { useEffect } from "react";
 import { useUserStore } from "../../stores/userStore";
-import PageLoading from "../../components/PageLoading";
+import PageLoading from "../../components/common/PageLoading";
 
 const LoggedOutLayout = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();

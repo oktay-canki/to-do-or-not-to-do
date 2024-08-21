@@ -1,21 +1,26 @@
-import { LuClipboardList } from "react-icons/lu";
 import { useEffect, useState } from "react";
-import Button from "./ui/Button";
+import Button from "../ui/Button";
 import { IoShareSocial } from "react-icons/io5";
-import SidebarToggler from "./SidebarToggler";
-import AddTaskForm from "./forms/AddTaskForm";
-import useCurrentTaskGroup from "../hooks/useCurrentTaskGroup";
-import useCurrentUser from "../hooks/useCurrentUser";
-import Task from "../types/Task";
-import DNDList from "./DNDList/DNDList";
-import LoadingSpinner from "./LoadingSpinner";
+import SidebarToggler from "../Sidebar/SidebarToggler";
+import AddTaskForm from "../forms/AddTaskForm";
+import useCurrentTaskGroup from "../../hooks/useCurrentTaskGroup";
+import useCurrentUser from "../../hooks/useCurrentUser";
+import Task from "../../types/Task";
+import DNDList from "../DNDList/DNDList";
+import LoadingSpinner from "../common/LoadingSpinner";
 import { collection, onSnapshot, query } from "firebase/firestore";
-import { db } from "../services/firebase/main";
+import { db } from "../../services/firebase/main";
 import { BiSolidError } from "react-icons/bi";
+import { useTaskDetailsStore } from "../../stores/taskDetailsStore";
+import TaskGroupTitleForm from "../forms/TaskGroupTitleForm";
+import setIsCompletedTask from "../../services/firebase/tasks/setTaskIsCompleted";
+import { firebaseErrorMessage, isRequestError } from "../../utils/main";
+import { toast } from "react-toastify";
 
 const TaskGroupView = () => {
   const currentUser = useCurrentUser();
   const currentTaskGroup = useCurrentTaskGroup();
+  const { setSelectedTask } = useTaskDetailsStore();
   const [notCompletedTasks, setNotCompletedTasks] = useState<
     Task[] | undefined
   >(undefined);
@@ -71,23 +76,58 @@ const TaskGroupView = () => {
     return () => {
       unsubscribe();
     };
-  }, [currentTaskGroup]);
+  }, [currentTaskGroup.id]);
 
-  const showDetails = () => {
-    // TODO: Implement task details view
+  const handleNotCompletedCheck = async (task: Task) => {
+    // Remove from not completed and add to completed & write to db
+    task.isCompleted = true;
+    setNotCompletedTasks((prev) =>
+      prev ? prev.filter((t) => t.id === task.id) : prev
+    );
+    setCompletedTasks((prev) => (prev ? [...prev, task] : prev));
+
+    try {
+      setIsCompletedTask(currentUser.id, currentTaskGroup.id, task.id, true);
+    } catch (error) {
+      if (isRequestError(error)) {
+        toast.error(firebaseErrorMessage(error));
+      } else {
+        toast.error("An unknown error occurred.");
+      }
+      console.log(error);
+    }
+  };
+
+  const handleCompletedCheck = async (task: Task) => {
+    // Remove from completed and add to not completed & write to db
+    task.isCompleted = false;
+    setCompletedTasks((prev) =>
+      prev ? prev.filter((t) => t.id === task.id) : prev
+    );
+    setNotCompletedTasks((prev) => (prev ? [...prev, task] : prev));
+
+    try {
+      setIsCompletedTask(currentUser.id, currentTaskGroup.id, task.id, false);
+    } catch (error) {
+      if (isRequestError(error)) {
+        toast.error(firebaseErrorMessage(error));
+      } else {
+        toast.error("An unknown error occurred.");
+      }
+      console.log(error);
+    }
   };
 
   return (
     <div className="flex flex-col flex-1 p-8 min-w-0">
       <SidebarToggler />
       <div className="flex items-center py-8 px-6 gap-2">
-        <LuClipboardList size={28} />
-        <h2 className="flex-1 text-2xl font-bold overflow-hidden whitespace-nowrap text-ellipsis">
-          {currentTaskGroup.title}
-          <small className="text-secondary-text ml-2">
+        <div className="flex flex-1 flex-col">
+          <TaskGroupTitleForm />
+          <small className="text-base text-secondary-text ml-2">
             #{currentTaskGroup.id}
           </small>
-        </h2>
+        </div>
         <Button className="rounded-full p-3">
           <IoShareSocial size={22} />
         </Button>
@@ -112,7 +152,14 @@ const TaskGroupView = () => {
             getItemId={(task) => task.id}
             itemRender={(task) => (
               <div className="flex gap-2 py-3 px-4 items-center">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNotCompletedCheck(task);
+                  }}
+                  checked={false}
+                />
                 <span className="flex flex-1">{task.title}</span>
               </div>
             )}
@@ -120,6 +167,9 @@ const TaskGroupView = () => {
             itemDragBorder="yellow"
             itemDragOverBorder="white"
             handleDrop={() => {}}
+            onItemClick={(task) => {
+              setSelectedTask(task);
+            }}
           />
         )}
         {completedTasks && completedTasks.length > 0 && (
@@ -134,9 +184,16 @@ const TaskGroupView = () => {
               getItemId={(task) => task.id}
               itemRender={(task) => (
                 <div className="flex gap-2 py-3 items-center">
-                  <input type="checkbox" defaultChecked />
+                  <input
+                    type="checkbox"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCompletedCheck(task);
+                    }}
+                    checked={true}
+                  />
                   <span className="flex flex-1 line-through text-secondary-text">
-                    Paper Towel
+                    {task.title}
                   </span>
                 </div>
               )}
@@ -144,6 +201,9 @@ const TaskGroupView = () => {
               itemDragBorder="yellow"
               itemDragOverBorder="white"
               handleDrop={() => {}}
+              onItemClick={(task) => {
+                setSelectedTask(task);
+              }}
             />
           </>
         )}

@@ -1,5 +1,5 @@
-import { useSidebarStore } from "../stores/sidebarStore";
-import Button from "./ui/Button";
+import { useSidebarStore } from "../../stores/sidebarStore";
+import Button from "../ui/Button";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 const SidebarToggler = () => {

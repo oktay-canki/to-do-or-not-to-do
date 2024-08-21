@@ -17,12 +17,25 @@ interface TaskGroupState {
   setSelectedTaskGroup: (taskGroup: TaskGroup) => void;
 }
 
-export const useTaskGroupStore = create<TaskGroupState>((set) => ({
+export const useTaskGroupStore = create<TaskGroupState>((set, get) => ({
   taskGroups: undefined,
   selectedTaskGroup: undefined,
   isLoading: false,
 
   setTaskGroups: (taskGroups: TaskGroup[] | undefined) => {
+    if (taskGroups) {
+      const currentSelected = get().selectedTaskGroup;
+      if (currentSelected) {
+        const updatedSelected = taskGroups.find(
+          (tg) => tg.id === currentSelected.id
+        );
+        if (updatedSelected) {
+          set({ selectedTaskGroup: updatedSelected });
+        } else {
+          set({ selectedTaskGroup: undefined });
+        }
+      }
+    }
     set({ taskGroups, isLoading: false });
   },
 

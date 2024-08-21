@@ -1,15 +1,16 @@
 import { RxDragHandleDots2 } from "react-icons/rx";
 import { useState, useEffect } from "react";
-import { useTaskGroupStore } from "../stores/taskGroupStore";
-import TaskGroup from "../types/TaskGroup";
+import { useTaskGroupStore } from "../../stores/taskGroupStore";
+import TaskGroup from "../../types/TaskGroup";
 import TaskGroupListSkeleton from "./TaskGroupListSkeleton";
-import { firebaseErrorMessage, isRequestError } from "../utils/main";
+import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 import { toast } from "react-toastify";
-import updateTaskGroupsBatch from "../services/firebase/task-groups/updateTaskGroupsBatch";
-import useCurrentUser from "../hooks/useCurrentUser";
-import LoadingSpinner from "./LoadingSpinner";
-import DNDList from "./DNDList/DNDList";
-import { useDNDStore } from "../stores/dndStore";
+import updateTaskGroupsBatch from "../../services/firebase/task-groups/updateTaskGroupsBatch";
+import useCurrentUser from "../../hooks/useCurrentUser";
+import LoadingSpinner from "../common/LoadingSpinner";
+import DNDList from "../DNDList/DNDList";
+import { useDNDStore } from "../../stores/dndStore";
+import { useTaskDetailsStore } from "../../stores/taskDetailsStore";
 
 type TaskGroupListProps = {
   className?: string;
@@ -17,7 +18,9 @@ type TaskGroupListProps = {
 
 const TaskGroupList = ({ className }: TaskGroupListProps) => {
   const currentUser = useCurrentUser();
-  const { isLoading, taskGroups, setSelectedTaskGroup } = useTaskGroupStore();
+  const { isLoading, taskGroups, selectedTaskGroup, setSelectedTaskGroup } =
+    useTaskGroupStore();
+  const { setSelectedTask } = useTaskDetailsStore();
   const { clearDND, draggedItemId, sourceListId } = useDNDStore();
   const [localTaskGroups, setLocalTaskGroups] = useState<TaskGroup[]>(() => {
     return taskGroups ?? [];
@@ -108,7 +111,12 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
             itemDragBorder="yellow"
             itemDragOverBorder="white"
             handleDrop={handleDrop}
-            onItemClick={(taskGroup) => setSelectedTaskGroup(taskGroup)}
+            onItemClick={(taskGroup) => {
+              setSelectedTaskGroup(taskGroup);
+              if (selectedTaskGroup && taskGroup.id !== selectedTaskGroup.id) {
+                setSelectedTask(undefined);
+              }
+            }}
           />
         </>
       )}

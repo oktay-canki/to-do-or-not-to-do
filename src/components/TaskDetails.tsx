@@ -4,16 +4,14 @@ import Button from "./ui/Button";
 import { GrAttachment } from "react-icons/gr";
 import { IoClose } from "react-icons/io5";
 import { useTaskDetailsStore } from "../stores/taskDetailsStore";
+import useCurrentTask from "../hooks/useCurrentTask";
 
 const TaskDetails = () => {
-  const { isVisible, hideDetails } = useTaskDetailsStore();
+  const currentTask = useCurrentTask();
+  const { hideDetails } = useTaskDetailsStore();
 
   return (
-    <div
-      className={`${
-        !isVisible && "hidden"
-      } absolute w-full flex lg:w-fit lg:static`}
-    >
+    <div className={`absolute w-full flex lg:w-fit lg:static`}>
       <div
         className="bg-black flex-1 opacity-55 lg:hidden"
         onClick={hideDetails}
@@ -29,8 +27,9 @@ const TaskDetails = () => {
           <input type="checkbox" />
           <Input
             type="text"
+            autoComplete="off"
             className="bg-transparent hover:bg-primary focus:bg-primary py-2 px-1 ml-1 text-xl"
-            defaultValue={"Selected task title dsad as dasd as ds"}
+            value={currentTask.title}
           />
         </div>
         <form className="flex items-center mt-1">
@@ -39,12 +38,13 @@ const TaskDetails = () => {
           </label>
           <Input
             type="text"
+            autoComplete="off"
             className="bg-transparent h-12 px-1 rounded-none"
             placeholder="Add a step"
           />
         </form>
         <form className="mt-4">
-          <Input type="date" label="Due Date" />
+          <Input type="date" label="Due Date" autoComplete="off" />
           <div className="mt-4">
             <label className="mt-4">Description</label>
             <textarea className="w-full h-32 bg-primary rounded-md p-4 mt-2 outline-none"></textarea>

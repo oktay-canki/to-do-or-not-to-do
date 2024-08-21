@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../services/firebase/main";
 import { doc, setDoc } from "firebase/firestore";
-import RequestError from "../../types/RequestError";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 
 const formSchema = z
@@ -73,6 +72,7 @@ const RegisterForm = () => {
         <Input
           {...rhfRegister("username")}
           type="text"
+          autoComplete="off"
           name="username"
           label="Username"
           placeholder="Enter your username"

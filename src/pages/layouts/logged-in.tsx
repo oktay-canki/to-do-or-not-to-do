@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Notification from "../../components/Notification";
+import Notification from "../../components/common/Notification";
 import { useUserStore } from "../../stores/userStore";
-import PageLoading from "../../components/PageLoading";
+import PageLoading from "../../components/common/PageLoading";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../services/firebase/main";
@@ -12,7 +12,12 @@ import { sortByGroupOrder } from "../../utils/main";
 
 const LoggedInLayout = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();
-  const { fetchTaskGroups, setTaskGroups } = useTaskGroupStore();
+  const {
+    fetchTaskGroups,
+    setTaskGroups,
+    selectedTaskGroup,
+    setSelectedTaskGroup,
+  } = useTaskGroupStore();
 
   useEffect(() => {
     let unSubAuth: (() => void) | undefined;
@@ -28,6 +33,7 @@ const LoggedInLayout = () => {
             const taskGroupsData = snapshot.docs.map(
               (doc) => ({ id: doc.id, ...doc.data() } as TaskGroup)
             );
+
             setTaskGroups(sortByGroupOrder(taskGroupsData));
           } catch (error) {
             console.log(error);

@@ -1,10 +1,10 @@
-import ProfileAvatar from "./ProfileAvatar";
-import SearchForm from "./forms/SearchForm";
-import TaskGroupList from "./TaskGroupList";
-import Button from "./ui/Button";
+import ProfileAvatar from "../ProfileAvatar";
+import SearchForm from "../forms/SearchForm";
+import TaskGroupList from "../TaskGroup/TaskGroupList";
+import Button from "../ui/Button";
 import { IoClose } from "react-icons/io5";
-import AddTaskGroupForm from "./forms/AddTaskGroupForm";
-import { useSidebarStore } from "../stores/sidebarStore";
+import AddTaskGroupForm from "../forms/AddTaskGroupForm";
+import { useSidebarStore } from "../../stores/sidebarStore";
 
 const Sidebar = () => {
   const { isVisible, hideSidebar } = useSidebarStore();

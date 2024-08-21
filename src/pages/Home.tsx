@@ -1,9 +1,11 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 import TaskDetails from "../components/TaskDetails";
-import TaskGroupView from "../components/TaskGroupView";
+import TaskGroupView from "../components/TaskGroup/TaskGroupView";
+import { useTaskDetailsStore } from "../stores/taskDetailsStore";
 import { useTaskGroupStore } from "../stores/taskGroupStore";
 
 const Home = () => {
+  const { isVisible, selectedTask } = useTaskDetailsStore();
   const { selectedTaskGroup } = useTaskGroupStore();
   return (
     <div className="flex h-dvh">
@@ -13,7 +15,7 @@ const Home = () => {
           <TaskGroupView />
         ) /* TODO: create a task group view skeleton */
       }
-      <TaskDetails />
+      {isVisible && selectedTask && <TaskDetails />}
     </div>
   );
 };

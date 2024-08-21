@@ -8,7 +8,7 @@ import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 import { toast } from "react-toastify";
 import addTaskGroup from "../../services/firebase/task-groups/addTaskGroup";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../common/LoadingSpinner";
 import { useTaskGroupStore } from "../../stores/taskGroupStore";
 import { getDoc } from "firebase/firestore";
 import TaskGroup from "../../types/TaskGroup";
@@ -69,6 +69,7 @@ const AddTaskGroupForm = () => {
         type="text"
         placeholder="Add new task group"
         className="h-12 flex-1 outline-none bg-primary text-lg px-3 py-1 hover:bg-primary focus:bg-primary"
+        autoComplete="off"
       />
       <Button
         type="submit"
