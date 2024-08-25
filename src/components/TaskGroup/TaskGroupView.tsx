@@ -79,13 +79,6 @@ const TaskGroupView = () => {
   }, [currentTaskGroup.id]);
 
   const handleNotCompletedCheck = async (task: Task) => {
-    // Remove from not completed and add to completed & write to db
-    task.isCompleted = true;
-    setNotCompletedTasks((prev) =>
-      prev ? prev.filter((t) => t.id === task.id) : prev
-    );
-    setCompletedTasks((prev) => (prev ? [...prev, task] : prev));
-
     try {
       setIsCompletedTask(currentUser.id, currentTaskGroup.id, task.id, true);
     } catch (error) {
@@ -99,13 +92,6 @@ const TaskGroupView = () => {
   };
 
   const handleCompletedCheck = async (task: Task) => {
-    // Remove from completed and add to not completed & write to db
-    task.isCompleted = false;
-    setCompletedTasks((prev) =>
-      prev ? prev.filter((t) => t.id === task.id) : prev
-    );
-    setNotCompletedTasks((prev) => (prev ? [...prev, task] : prev));
-
     try {
       setIsCompletedTask(currentUser.id, currentTaskGroup.id, task.id, false);
     } catch (error) {
@@ -159,6 +145,7 @@ const TaskGroupView = () => {
                     handleNotCompletedCheck(task);
                   }}
                   checked={false}
+                  onChange={() => {}}
                 />
                 <span className="flex flex-1">{task.title}</span>
               </div>
@@ -191,6 +178,7 @@ const TaskGroupView = () => {
                       handleCompletedCheck(task);
                     }}
                     checked={true}
+                    onChange={() => {}}
                   />
                   <span className="flex flex-1 line-through text-secondary-text">
                     {task.title}
