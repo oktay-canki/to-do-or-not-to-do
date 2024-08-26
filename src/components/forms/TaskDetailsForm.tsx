@@ -49,10 +49,8 @@ const TaskDetailsForm = () => {
 
   useEffect(() => {
     if (currentTask.title) setValue("taskName", currentTask.title);
-    if (currentTask.dueDate && currentTask.dueDate !== null)
-      console.log(currentTask.dueDate);
-    if (currentTask.description)
-      setValue("description", currentTask.description);
+    setValue("dueDate", currentTask.dueDate ?? undefined);
+    setValue("description", currentTask.description ?? "");
   }, [
     currentTask.title,
     currentTask.dueDate,
