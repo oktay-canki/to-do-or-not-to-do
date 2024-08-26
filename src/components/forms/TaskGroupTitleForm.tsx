@@ -26,8 +26,7 @@ const TaskGroupTitleForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
+    formState: { isSubmitting },
     setValue,
   } = useForm<TaskGroupTitleFormFields>({ resolver: zodResolver(formSchema) });
 

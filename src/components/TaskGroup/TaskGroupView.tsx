@@ -16,6 +16,7 @@ import TaskGroupTitleForm from "../forms/TaskGroupTitleForm";
 import setIsCompletedTask from "../../services/firebase/tasks/setTaskIsCompleted";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 import { toast } from "react-toastify";
+import { docDataToTaskObject } from "../../services/firebase/tasks/mappers";
 
 const TaskGroupView = () => {
   const currentUser = useCurrentUser();
@@ -45,10 +46,9 @@ const TaskGroupView = () => {
     const unsubscribe = onSnapshot(
       tasksQuery,
       (snapshot) => {
-        const updatedTasks = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Task[];
+        const updatedTasks = snapshot.docs.map((doc) =>
+          docDataToTaskObject(doc)
+        ) as Task[];
         const { completed, notCompleted } = updatedTasks.reduce(
           (acc, task) => {
             if (task.isCompleted) {

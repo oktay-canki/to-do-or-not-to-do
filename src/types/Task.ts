@@ -2,15 +2,12 @@ import { Timestamp } from "firebase/firestore";
 
 type Task = {
   id: string;
-  userId: string;
-  groupId: string;
-  groupOrder: number;
   title: string;
-  description: string;
-  dueDate: Timestamp;
-  isCompleted: boolean;
-  isImportant: boolean;
   createdAt: Timestamp;
+  description?: string;
+  dueDate?: string | null;
+  isCompleted?: boolean;
+  isImportant?: boolean;
   updatedAt?: Timestamp;
 };
 

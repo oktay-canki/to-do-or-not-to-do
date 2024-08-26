@@ -1,6 +1,7 @@
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../main";
 import Task from "../../../types/Task";
+import { docDataToTaskObject } from "./mappers";
 
 const fetchTasks = async (
   uid: string,
@@ -16,12 +17,8 @@ const fetchTasks = async (
   );
   const q = query(taskGroupCollection);
   const querySnapshot = await getDocs(q);
-  const fetchedTasks: Task[] = querySnapshot.docs.map(
-    (doc) =>
-      ({
-        id: doc.id,
-        ...doc.data(),
-      } as Task)
+  const fetchedTasks: Task[] = querySnapshot.docs.map((doc) =>
+    docDataToTaskObject(doc)
   );
   return fetchedTasks;
 };
