@@ -11,6 +11,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../services/firebase/main";
 import { doc, setDoc } from "firebase/firestore";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
+import createNewUserDocument from "../../services/firebase/auth/createNewUserDocument";
 
 const formSchema = z
   .object({
@@ -48,11 +49,7 @@ const RegisterForm = () => {
 
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      await setDoc(doc(db, "users", res.user.uid), {
-        id: res.user.uid,
-        username: username,
-        email: email,
-      });
+      await createNewUserDocument(res.user.uid, username, email);
 
       toast.success("Your account is created");
     } catch (error) {

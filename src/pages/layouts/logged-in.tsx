@@ -12,12 +12,7 @@ import { sortByGroupOrder } from "../../utils/main";
 
 const LoggedInLayout = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();
-  const {
-    fetchTaskGroups,
-    setTaskGroups,
-    selectedTaskGroup,
-    setSelectedTaskGroup,
-  } = useTaskGroupStore();
+  const { fetchTaskGroups, setTaskGroups } = useTaskGroupStore();
 
   useEffect(() => {
     let unSubAuth: (() => void) | undefined;
