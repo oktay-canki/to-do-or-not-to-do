@@ -122,6 +122,7 @@ const TaskGroupView = () => {
     if (isDeleting) return;
     setIsDeleting(true);
     try {
+      setSelectedTask(undefined);
       await deleteTaskGroup(currentUser.id, currentTaskGroup.id);
     } catch (error) {
       if (isRequestError(error)) {
