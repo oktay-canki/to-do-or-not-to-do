@@ -66,12 +66,14 @@ const TaskDetailsForm = () => {
     )
       return;
 
+    console.log(data.dueDate, " ", currentTask.dueDate);
+
     try {
       const updatedTask = {
         ...currentTask,
         title: data.taskName,
         description: data.description,
-        dueDate: data.dueDate,
+        dueDate: data.dueDate ?? "",
       };
       await updateTask(currentUser.id, currentTaskGroup.id, updatedTask);
       setSelectedTask(updatedTask);

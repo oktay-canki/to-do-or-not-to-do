@@ -11,6 +11,7 @@ import LoadingSpinner from "../common/LoadingSpinner";
 import DNDList from "../DNDList/DNDList";
 import { useDNDStore } from "../../stores/dndStore";
 import { useTaskDetailsStore } from "../../stores/taskDetailsStore";
+import { useSidebarStore } from "../../stores/sidebarStore";
 
 type TaskGroupListProps = {
   className?: string;
@@ -22,6 +23,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
     useTaskGroupStore();
   const { setSelectedTask } = useTaskDetailsStore();
   const { clearDND, draggedItemId, sourceListId } = useDNDStore();
+  const { hideSidebar } = useSidebarStore();
   const [localTaskGroups, setLocalTaskGroups] = useState<TaskGroup[]>(() => {
     return taskGroups ?? [];
   });
@@ -113,9 +115,11 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
             handleDrop={handleDrop}
             onItemClick={(taskGroup) => {
               setSelectedTaskGroup(taskGroup);
+              hideSidebar();
+              /*
               if (selectedTaskGroup && taskGroup.id !== selectedTaskGroup.id) {
                 setSelectedTask(undefined);
-              }
+              }*/
             }}
           />
         </>

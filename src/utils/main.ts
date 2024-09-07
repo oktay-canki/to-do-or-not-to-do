@@ -91,3 +91,13 @@ export const sortByGroupOrder = (
     asc ? a.groupOrder - b.groupOrder : b.groupOrder - a.groupOrder
   );
 };
+
+export const sortByCreatedAt = (items: any[], asc = true) => {
+  const sorted = items.sort((a, b) => {
+    if (!a.createdAt) return 1;
+    if (!b.createdAt) return -1;
+    return a.createdAt.toDate().getTime() - b.createdAt.toDate().getTime();
+  });
+
+  return asc ? sorted : sorted.reverse();
+};

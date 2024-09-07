@@ -12,6 +12,7 @@ import LoadingSpinner from "../common/LoadingSpinner";
 import { useTaskGroupStore } from "../../stores/taskGroupStore";
 import { getDoc } from "firebase/firestore";
 import TaskGroup from "../../types/TaskGroup";
+import { useSidebarStore } from "../../stores/sidebarStore";
 
 const formSchema = z.object({
   groupName: z
@@ -24,6 +25,7 @@ type AddTaskGroupFormFields = z.infer<typeof formSchema>;
 
 const AddTaskGroupForm = () => {
   const currentUser = useCurrentUser();
+  const { hideSidebar } = useSidebarStore();
   const { setSelectedTaskGroup } = useTaskGroupStore();
   const {
     register,
@@ -47,6 +49,7 @@ const AddTaskGroupForm = () => {
         } as TaskGroup);
       }
 
+      hideSidebar();
       reset();
     } catch (error) {
       if (isRequestError(error)) {

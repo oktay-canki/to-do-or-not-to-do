@@ -35,6 +35,10 @@ export const useTaskGroupStore = create<TaskGroupState>((set, get) => ({
           set({ selectedTaskGroup: undefined });
         }
       }
+
+      if (!currentSelected && taskGroups && taskGroups.length > 0) {
+        set({ selectedTaskGroup: taskGroups[0] });
+      }
     }
     set({ taskGroups, isLoading: false });
   },
