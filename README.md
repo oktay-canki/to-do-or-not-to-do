@@ -1,30 +1,37 @@
-# React + TypeScript + Vite
+# ✅ To Do or Not To Do ❌
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Preview The Demo @ https://reacttodo-abb81.web.app
 
-Currently, two official plugins are available:
+### What is it?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A mock to-do app I made to get more familiar with firebase and react design patterns.
 
-## Expanding the ESLint configuration
+### What did I learn?
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- I ran into a lot of issues with 3rd party DND packages so I had to make my DNDLists with zustand,
+  my conclusion: DND is complicated, I think
+- How firebase rules work
 
-- Configure the top-level `parserOptions` property like this:
+### What did I use?
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- React.js w/ Typescript
+- Zustand
+- Firebase Auth & Firestore
+- TailwindCSS
+- React Router Dom
+- React Hook Form w/ Zod Form Validation
+- Vite
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### What is missing & may be added?
+
+- Forgot password functionality
+- Mandatory email verification
+- My account page
+- Search within todos
+- Reordering tasks within the same task group
+- Sharing a task group
+- Deleting a single task within a taskgroup
+- Attaching files to a task
+- Filtering tasks within a task group
+- Due date notification and visualization
+- Shortcuts for creating tasks

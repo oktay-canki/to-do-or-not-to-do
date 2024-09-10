@@ -1,3 +1,15 @@
+# Build files
+build
+
+# Firebase configuration files
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
+
+# Environment variables
+.env
+
 # Logs
 logs
 *.log
