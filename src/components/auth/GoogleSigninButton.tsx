@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import Button from "../ui/Button";
 import signInWithGoogle from "../../services/firebase/auth/signInWithGoogle";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const GoogleSigninButton = () => {
   const navigate = useNavigate();

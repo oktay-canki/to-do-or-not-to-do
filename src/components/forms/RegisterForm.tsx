@@ -8,8 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../services/firebase/main";
-import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../../services/firebase/main";
 import { firebaseErrorMessage, isRequestError } from "../../utils/main";
 import createNewUserDocument from "../../services/firebase/auth/createNewUserDocument";
 
@@ -37,7 +36,6 @@ const RegisterForm = () => {
   const {
     register: rhfRegister,
     handleSubmit,
-    setError,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormFields>({ resolver: zodResolver(formSchema) });
 

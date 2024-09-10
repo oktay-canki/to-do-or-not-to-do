@@ -32,11 +32,7 @@ const AddTaskForm = () => {
 
   const onSubmit: SubmitHandler<AddTaskFormFields> = async (data) => {
     try {
-      const newTask = await addTask(
-        currentUser.id,
-        selectedTaskGroup.id,
-        data.taskName
-      );
+      await addTask(currentUser.id, selectedTaskGroup.id, data.taskName);
       reset();
     } catch (error) {
       if (isRequestError(error)) {

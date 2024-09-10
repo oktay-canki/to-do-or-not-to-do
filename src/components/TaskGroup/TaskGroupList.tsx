@@ -10,7 +10,6 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingSpinner from "../common/LoadingSpinner";
 import DNDList from "../DNDList/DNDList";
 import { useDNDStore } from "../../stores/dndStore";
-import { useTaskDetailsStore } from "../../stores/taskDetailsStore";
 import { useSidebarStore } from "../../stores/sidebarStore";
 
 type TaskGroupListProps = {
@@ -19,9 +18,7 @@ type TaskGroupListProps = {
 
 const TaskGroupList = ({ className }: TaskGroupListProps) => {
   const currentUser = useCurrentUser();
-  const { isLoading, taskGroups, selectedTaskGroup, setSelectedTaskGroup } =
-    useTaskGroupStore();
-  const { setSelectedTask } = useTaskDetailsStore();
+  const { isLoading, taskGroups, setSelectedTaskGroup } = useTaskGroupStore();
   const { clearDND, draggedItemId, sourceListId } = useDNDStore();
   const { hideSidebar } = useSidebarStore();
   const [localTaskGroups, setLocalTaskGroups] = useState<TaskGroup[]>(() => {
@@ -30,7 +27,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   useEffect(() => {
-    setLocalTaskGroups((prev) => taskGroups ?? []);
+    setLocalTaskGroups(taskGroups ?? []);
   }, [taskGroups]);
 
   const handleDrop = async (destinationListId: string, index?: number) => {
@@ -44,7 +41,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
       return;
     }
 
-    setIsUpdating((prev) => true);
+    setIsUpdating(true);
     let localTaskGroupsClone = [...localTaskGroups];
     let oldIndex = localTaskGroupsClone.findIndex(
       (tg) => tg.id === draggedItemId
@@ -82,7 +79,7 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
     }
 
     clearDND();
-    setIsUpdating((prev) => false);
+    setIsUpdating(false);
   };
 
   return (
@@ -116,10 +113,6 @@ const TaskGroupList = ({ className }: TaskGroupListProps) => {
             onItemClick={(taskGroup) => {
               setSelectedTaskGroup(taskGroup);
               hideSidebar();
-              /*
-              if (selectedTaskGroup && taskGroup.id !== selectedTaskGroup.id) {
-                setSelectedTask(undefined);
-              }*/
             }}
           />
         </>

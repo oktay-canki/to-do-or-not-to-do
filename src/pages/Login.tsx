@@ -1,6 +1,3 @@
-import Button from "../components/ui/Button";
-import { FcGoogle } from "react-icons/fc";
-import { SiWindowsxp } from "react-icons/si";
 import { Link } from "react-router-dom";
 import LoginForm from "../components/forms/LoginForm";
 import GoogleSigninButton from "../components/auth/GoogleSigninButton";
@@ -47,12 +44,6 @@ const Login = () => {
             <hr className="flex-grow bg-text" />
           </div>
           <GoogleSigninButton />
-          {/*
-            <Button className="w-full flex justify-center items-center bg-white text-black mb-6 rounded-sm">
-              <SiWindowsxp size={30} className="mr-2" />
-              Login With Microsoft
-            </Button>
-          */}
         </div>
       </div>
     </div>

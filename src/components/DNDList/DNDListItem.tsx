@@ -40,13 +40,13 @@ const DNDListItem = ({
         opacity: isDragging ? 0.75 : 1,
       }}
       draggable
-      onDragStart={(e) => {
+      onDragStart={() => {
         onDragStart(listId, itemId);
       }}
-      onDragEnd={(e) => {
+      onDragEnd={() => {
         onDragEnd();
       }}
-      onDragOver={(e) => {
+      onDragOver={() => {
         setDragOver(listId, itemId);
       }}
       onDragLeave={(e) => {

@@ -49,7 +49,7 @@ const DNDList = <T,>({
         ...listStyle,
         ...(!isOwnDrag && listId === dragOverListId ? listDragOverStyle : {}),
       }}
-      onDragEnter={(e) => {
+      onDragEnter={() => {
         setDragOver(listId, null);
       }}
       onDragLeave={(e) => {
